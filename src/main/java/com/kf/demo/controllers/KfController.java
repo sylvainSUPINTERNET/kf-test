@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -20,7 +21,16 @@ public class KfController {
 
     public KfController(){}
 
+    @GetMapping("/resume")
+    public ResponseEntity<?> resumeProfilesBumble() {
+        this.kfService.produceBumble();
+        return ResponseEntity.status(HttpStatus.OK).body("OK");
+    }
 
+    @GetMapping("/")
+    public ResponseEntity<?> te() {
+        return ResponseEntity.status(HttpStatus.OK).body("D");
+    }
     @PostMapping("/{name}")
     public ResponseEntity<?> publishMsg(@PathVariable(name="name") String name) {
         this.kfService.sendMsg(name);
@@ -33,4 +43,6 @@ public class KfController {
         User user = gson.fromJson(message, User.class);
         System.out.println("CONSUME " + user.getFirstName());
     }
+
+
 }

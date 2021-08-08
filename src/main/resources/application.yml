@@ -1,3 +1,10 @@
 
 server:
   port : 9999
+logging:
+    level:
+        org:
+            springframework:
+                web: DEBUG
+bot:
+  URL: "https://localhost:3000/unity/profiles"
